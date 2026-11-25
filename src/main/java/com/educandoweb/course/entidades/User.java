@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +29,7 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	@JsonIgnore //PARA NAO DAR LOOP INFINITO, CHAMANDO A CLASSE USER E ORDER. SOMENTE A CLASSE ORDER(MUITOS) CHAMA O USER JUNTO COM O PEDIDO E NAO O CONTRARIO
 	@OneToMany(mappedBy = "client")//ESSE MUITOS PARA UM, DO OUTRO LADO ESTA MAPEADO PELO CLIENT
 	private List<Order> orders = new ArrayList<>();
 	
