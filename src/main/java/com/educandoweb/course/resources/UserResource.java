@@ -9,24 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.educandoweb.course.entidades.Category;
 import com.educandoweb.course.entidades.User;
+import com.educandoweb.course.services.CategoryService;
 import com.educandoweb.course.services.UserService;
 
-@RestController
-@RequestMapping(value = "/users")
+@RestController//CLASSE CONTROLADOR, RECEBE REAQUISICOES HTTP E DEVOLVE RESPOSTAS
+@RequestMapping(value = "/categories")//ENDERECO BASE QUE A CLASSE VAI ATENDER
 public class UserResource {
 	
 	@Autowired
-	private UserService service;
+	private CategoryService service;
 	
-	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	@GetMapping//INDICA QUE ESSA METODO SERA EXECUTADO QUANDO CHEGAR REQUISICAO HTTP DO TIPO GET
+	public ResponseEntity<List<Category>> findAll(){
+		List<Category> list = service.findAll();//CONTROLLER CHAMA O SERVICE
+		return ResponseEntity.ok().body(list);//RESPOSTA AO HTTP, CUJO BODY CONTEM UMA LISTA
 	}
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
-		User obj = service.findById(id);
+	@GetMapping(value = "/{id}")//METODO QUE RESPONDE QUANDO TEM UM ID NA URL
+	public ResponseEntity<Category> findById(@PathVariable Long id){//@PATHVARIABLE PEGA O VALOR DA URL E COLOCA DENTRO DO PARAMETRO ID DESSE METODO
+		Category obj = service.findById(id);//CHAMANDO O SERVICE PARA PROCURAR O ID DA URL
 		return ResponseEntity.ok().body(obj);
 	}
 
